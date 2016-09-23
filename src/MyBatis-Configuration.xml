@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="users" type="SLMB.pojo.users"/>
+		<typeAlias alias="cfttype" type="SLMB.pojo.cfttype"/>
+		<typeAlias alias="commodity" type="SLMB.pojo.commodity"/>
+		<typeAlias alias="commStatus" type="SLMB.pojo.commStatus"/>
+		<typeAlias alias="leaveWord" type="SLMB.pojo.leaveWord"/>
+		<typeAlias alias="memberType" type="SLMB.pojo.memberType"/>
+		<typeAlias alias="notice" type="SLMB.pojo.notice"/>
+		<typeAlias alias="ntType" type="SLMB.pojo.ntType"/>
+		<typeAlias alias="role" type="SLMB.pojo.role"/>
+		<typeAlias alias="shop" type="SLMB.pojo.shop"/>
+		<typeAlias alias="uDetail" type="SLMB.pojo.uDetail"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="SLMB/dao/UsersMapper.xml"/>
+	</mappers>
+</configuration>
