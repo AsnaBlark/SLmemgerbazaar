@@ -18,6 +18,9 @@
 		<property name="configLocation" value="classpath:MyBatis-Configuration.xml"></property>
 	</bean>
 	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="basePackage" value="SLMB.Dao"></property>
+	</bean>
 
 
 	<bean id="trans"

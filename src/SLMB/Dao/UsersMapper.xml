@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SLMB.Dao.UsersDao">
+
+<resultMap type="users" id="UsersMap">
+ <id column="id" property="id"/>
+ <result column="name" property="name"/>
+ <result column="pwd" property="pwd"/>
+<association property="did" resultMap="UDetailMap"></association>
+</resultMap>
+
+<resultMap type="uDetail" id="UDetailMap">
+<id column="id" property="id"/>
+<result column="address" property="address"/>
+<result column="age" property="age"/>
+<result column="sex" property="sex"/>
+<result column="email" property="email"/>
+<result column="bankprint" property="bankprint"/>
+<result column="cftnumber" property="cftnumber"/>
+<result column="endtime" property="endtime"/>
+<result column="idtprint" property="idtprint"/>
+<result column="phone" property="phone"/>
+<result column="openperson" property="openperson"/>
+<result column="opennumber" property="opennumber"/>
+<result column="zipcode" property="zipcode"/>
+<result column="name" property="name"/>
+<association property="cid" resultMap="CfttypeMap"></association>
+<association property="mid" resultMap="memberTypeMap"></association>
+<association property="rid" resultMap="roleMap"></association>
+</resultMap>
+
+<resultMap type="cfttype" id="CfttypeMap">
+<id column="id" property="id"/>
+<result column="name" property="name"/>
+</resultMap>
+
+<resultMap type="memberType" id="memberTypeMap">
+<id column="id" property="id"/>
+<result column="name" property="name"/>
+</resultMap>
+
+<resultMap type="role" id="roleMap">
+<id column="id" property="id"/>
+<result column="name" property="name"/>
+</resultMap>
+
+<select id="PageQuery" parameterType="map" resultMap="UsersMap">
+		select users.*,uDetail.* from users JOIN uDetail ON users.did=uDetail.id
+		where 1=1 
+			<if test="name != null">
+			and uDetail.name=#{name}
+			</if>
+			and users.id limit #{pageindex},#{pagesize}
+	</select>
+
+	<select id="Query" resultMap="UsersMap">
+		select users.*,uDetail.* from users,uDetail where users.did=uDetail.id
+	</select> 	
+	
+	<select id="GetById" resultMap="UsersMap" parameterType="int">
+		select users.*,uDetail.*,cfttype.*,memberType.*,role.* from users,uDetail,cfttype,memberType,role where users.did=uDetail.id
+		and uDetail.mid=memberType.id
+		and uDetail.cid=cfttype.id
+		and uDetail.rid=role.id
+		 and users.id=#{id}
+	</select>
+	
+	<delete id="Delete" parameterType="int">
+		delete uDetail where id=(select did from users where users.id=#{id})
+		delete users where id=#{id}
+	</delete>
+	
+	
+</mapper>
